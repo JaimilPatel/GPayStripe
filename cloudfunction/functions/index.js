@@ -43,16 +43,17 @@ exports.createPayment = functions.region('europe-west3').https.onCall(async (dat
     })
     return {
       paymentIntentId: paymentIntent.id,
-      paymentMethodId: paymentMethod.id
+      paymentMethodId: paymentMethod.id,
     }
   } catch (e) {
     console.log(e);
+    return {
+      error : e,
+      paymentIntentId: "",
+      paymentMethodId: ""
+    }
   }
-  return {
-    paymentIntentId: "",
-    paymentMethodId: ""
-  }
-})
+});
 
 //For Confirmming Payment
 exports.confirmPayment = functions.region('europe-west3').https.onCall(async (data, context) => {
@@ -65,8 +66,27 @@ exports.confirmPayment = functions.region('europe-west3').https.onCall(async (da
     }
   } catch (e) {
     console.log(e);
+    return {
+      error : e,
+      paymentStatus : ""
+    }
   }
+});
+
+//For Canceling Payment
+exports.cancelPayment = functions.region('europe-west3').https.onCall(async (data, context) => {
+  try{
+  const cancel = await stripe.paymentIntents.cancel(
+    data.paymentIntentId,
+  );
   return {
-    paymentStatus: "",
+    cancelStatus: cancel.status,
+  }
+  }catch(e){
+    console.log(e);
+    return {
+      error : e,
+      cancelStatus : ""
+    }
   }
 });
