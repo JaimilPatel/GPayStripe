@@ -1,12 +1,12 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:googlepaystripe/apis/stripe_payment_manager.dart';
 import 'package:googlepaystripe/home/model/cancel_payment_info.dart';
 import 'package:googlepaystripe/home/model/confirm_payment_info.dart';
 import 'package:googlepaystripe/home/model/payment_intent_info.dart';
 import 'package:googlepaystripe/utils/constants/constants.dart';
 import 'package:googlepaystripe/utils/constants/dimens.dart';
+import 'package:googlepaystripe/utils/toast.dart';
 import 'package:intl/intl.dart';
 import 'package:stripe_native/stripe_native.dart';
 
@@ -92,7 +92,7 @@ class _GooglePaymentPageState extends State<GooglePaymentPage> {
         }
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: e);
+      ToastUtils.showToast(e, Colors.black, Colors.white);
       return e;
     }
   }
@@ -164,11 +164,14 @@ class _GooglePaymentPageState extends State<GooglePaymentPage> {
           context, intentId, methodId);
       if (result is ConfirmPaymentInfo) {
         if (result != null) {
-          Fluttertoast.showToast(msg: result.paymentStatus);
+          if (result.paymentStatus == paymentSuccessStatus) {
+            ToastUtils.showToast(
+                successPaymentStatus, Colors.black, Colors.white);
+          }
         }
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: e);
+      ToastUtils.showToast(e, Colors.black, Colors.white);
       return e;
     }
   }
@@ -180,11 +183,14 @@ class _GooglePaymentPageState extends State<GooglePaymentPage> {
           await _stripePaymentManager.cancelPayment(context, intentId);
       if (result is CancelPaymentInfo) {
         if (result != null) {
-          Fluttertoast.showToast(msg: result.cancelStatus);
+          if (result.cancelStatus == cancelStatus) {
+            ToastUtils.showToast(
+                cancelPaymentStatus, Colors.black, Colors.white);
+          }
         }
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: e);
+      ToastUtils.showToast(e, Colors.black, Colors.white);
       return e;
     }
   }

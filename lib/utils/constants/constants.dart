@@ -21,10 +21,12 @@ const String payTo = "Pay To";
 const String cancel = "Cancel";
 const String confirm = "Confirm";
 const String paymentStatusKey = "paymentStatus";
-const String success = "Payment Successful";
+const String successPaymentStatus = "Payment Successful";
 const String paymentSuccessStatus = "succeeded";
+const String cancelStatus = "canceled";
 const String cancelStatusKey = "cancelStatus";
 const String error = "error";
+const String cancelPaymentStatus = "Payment Canceled";
 
 const nativeTextStyle = TextStyle(
   fontSize: fontLarger,
