@@ -9,6 +9,7 @@ const String merchantIdentifier = "Test";
 const String europeRegion = "europe-west3";
 const String createPaymentMethod = 'createPayment';
 const String confirmPaymentMethod = 'confirmPayment';
+const String cancelPaymentMethod = 'cancelPayment';
 const String googlePay = "Google Pay";
 const String amountKey = 'amount';
 const String currencyKey = "currency";
@@ -22,6 +23,8 @@ const String confirm = "Confirm";
 const String paymentStatusKey = "paymentStatus";
 const String success = "Payment Successful";
 const String paymentSuccessStatus = "succeeded";
+const String cancelStatusKey = "cancelStatus";
+const String error = "error";
 
 const nativeTextStyle = TextStyle(
   fontSize: fontLarger,
