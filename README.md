@@ -2,16 +2,29 @@
 
 Use the Stripe to start accepting Google Pay in your Android apps.
 
+<p float="left">
+<img src="https://user-images.githubusercontent.com/52445432/84662274-39722500-af39-11ea-8619-6f8397eeaf46.jpg" width="400" height="200" />
+<img src="https://user-images.githubusercontent.com/52445432/84662167-0cbe0d80-af39-11ea-86c4-1e764912b54d.png" width="400" height="200" />
+</p>
+
+**Setup Firebase CLI To implement Cloud Function**
+
+Go to Firebase Console in your project then click on the Functions tab from the drawer.<br>
+Run the following commands in terminal : <br><br>
+```npm install -g firebase-tools```<br>
+```firebase init```<br><br>
+After running the last command you will get this window in the terminal.<br><br>
+<img src="https://user-images.githubusercontent.com/52445432/85175847-08298a00-b296-11ea-954d-6d1c5c543a4f.png"  height="150" /><br><br>
+**Choose Functions**: Configure and Deploy Cloud Functions.<br><br>
+<img src="https://user-images.githubusercontent.com/52445432/85175949-4d4dbc00-b296-11ea-9043-cbc358e93487.png"  height="100" /><br><br>
+After that please choose your project according to your project name and finish all the steps.<br> Please install all the **npm dependencies** which it's asking for.<br> It generates some files into your functions folder.<br><br>
 1. Google Pay Screen
 2. Google Pay Bottm Sheet with Card and Account Details
 3. Alert Dialog For Confirm and Cancel Payment Process
 4. Payment Successful Indicator
 5. Payment Unsuccessful Indicator
 <hr>
-<p float="left">
-<img src="https://user-images.githubusercontent.com/52445432/84662274-39722500-af39-11ea-8619-6f8397eeaf46.jpg" width="400" height="200" />
-<img src="https://user-images.githubusercontent.com/52445432/84662167-0cbe0d80-af39-11ea-86c4-1e764912b54d.png" width="400" height="200" />
-</p>
+
 
 # Screenshots for reference :
 
