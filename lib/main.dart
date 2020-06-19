@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:googlepaystripe/home/google_payment.dart';
-import 'package:googlepaystripe/splash/splash.dart';
+
+import 'utils/constants/constants.dart';
+import 'utils/localization/localization.dart';
+import 'utils/navigation.dart';
 
 void main() {
   runApp(GooglePayStripe());
@@ -12,15 +14,20 @@ class GooglePayStripe extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'GPay With Stripe',
+      title: "Gpay with Stripe",
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/splash',
-      routes: {
-        '/splash': (context) => SplashPage(),
-        '/gpay': (context) => GooglePaymentPage(),
-      },
+      initialRoute: routeSplash,
+      onGenerateRoute: NavigationUtils.generateRoute,
+      localizationsDelegates: [
+        const MyLocalizationsDelegate(),
+        DefaultMaterialLocalizations.delegate,
+        DefaultWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', ''),
+      ],
     );
   }
 }

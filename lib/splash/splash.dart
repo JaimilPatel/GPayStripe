@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:googlepaystripe/utils/constants/constants.dart';
+import 'package:googlepaystripe/utils/navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
@@ -12,16 +14,17 @@ class _SplashPageState extends State<SplashPage> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   SharedPreferences sharedPreferences;
+
   void initState() {
     super.initState();
     navigateToPaymentPage();
   }
 
+  //Set Navigation From SplashScreen To PaymentScreen
   void navigateToPaymentPage() async {
     Future.delayed(const Duration(milliseconds: 3000), () {
       setState(() {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/gpay', (Route<dynamic> route) => false);
+        NavigationUtils.push(context, routePayment);
       });
     });
   }

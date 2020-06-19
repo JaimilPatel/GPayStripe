@@ -1,4 +1,3 @@
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:googlepaystripe/apis/stripe_payment_manager.dart';
 import 'package:googlepaystripe/home/model/cancel_payment_info.dart';
@@ -6,6 +5,7 @@ import 'package:googlepaystripe/home/model/confirm_payment_info.dart';
 import 'package:googlepaystripe/home/model/payment_intent_info.dart';
 import 'package:googlepaystripe/utils/constants/constants.dart';
 import 'package:googlepaystripe/utils/constants/dimens.dart';
+import 'package:googlepaystripe/utils/localization/localization.dart';
 import 'package:googlepaystripe/utils/toast.dart';
 import 'package:intl/intl.dart';
 import 'package:stripe_native/stripe_native.dart';
@@ -22,7 +22,6 @@ class _GooglePaymentPageState extends State<GooglePaymentPage> {
   Map receipt;
   Receipt finalReceipt;
   String generatedToken = "";
-  HttpsCallable callConfirmPayment, callCancelPayment;
   final StripePaymentManager _stripePaymentManager = StripePaymentManager();
 
   @override
@@ -68,7 +67,7 @@ class _GooglePaymentPageState extends State<GooglePaymentPage> {
     return await StripeNative.useReceiptNativePay(finalReceipt);
   }
 
-  //Click Event Method For Google Pay Button To Start Create Payment
+  //Click Event Method For Google Pay Button
   _onNativeButtonClicked() async {
     currencyName = currency();
 //    Below Two lines is for Example To Show How To Pass Details To receiptPayment
@@ -88,7 +87,7 @@ class _GooglePaymentPageState extends State<GooglePaymentPage> {
       if (result is PaymentIntentInfo) {
         if (result != null) {
           confirmDialog(receipt, finalReceipt, result.paymentIntentId,
-              result.paymentMethodId, callConfirmPayment);
+              result.paymentMethodId);
         }
       }
     } catch (e) {
@@ -105,14 +104,15 @@ class _GooglePaymentPageState extends State<GooglePaymentPage> {
   }
 
   //To Ask User To Confirm Payment Or Not
-  confirmDialog(Map receipt, Receipt finalReceipt, String intentId,
-      String methodId, HttpsCallable callPaymentConfirm) {
+  confirmDialog(
+      Map receipt, Receipt finalReceipt, String intentId, String methodId) {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text(confirmDialogTitle, style: headerTextStyle),
+              title: Text(Localization.of(context).confirmDialogTitle,
+                  style: headerTextStyle),
               content: Container(
                   child:
                       Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -131,7 +131,8 @@ class _GooglePaymentPageState extends State<GooglePaymentPage> {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("$payTo ${finalReceipt.merchantName}",
+                      Text(
+                          "${Localization.of(context).payTo} ${finalReceipt.merchantName}",
                           style: headerTextStyle),
                       Text(
                         "${finalReceipt.items.values.elementAt(0) + finalReceipt.items.values.elementAt(1)}",
@@ -141,14 +142,16 @@ class _GooglePaymentPageState extends State<GooglePaymentPage> {
               ])),
               actions: <Widget>[
                 RaisedButton(
-                  child: Text(cancel, style: cancelTextStyle),
+                  child: Text(Localization.of(context).cancel,
+                      style: cancelTextStyle),
                   onPressed: () {
                     Navigator.of(context).pop();
                     cancelPayment(intentId);
                   },
                 ),
                 RaisedButton(
-                    child: Text(confirm, style: confirmTextStyle),
+                    child: Text(Localization.of(context).confirm,
+                        style: confirmTextStyle),
                     onPressed: () {
                       Navigator.of(context).pop();
                       confirmPayment(intentId, methodId);
@@ -164,9 +167,10 @@ class _GooglePaymentPageState extends State<GooglePaymentPage> {
           context, intentId, methodId);
       if (result is ConfirmPaymentInfo) {
         if (result != null) {
-          if (result.paymentStatus == paymentSuccessStatus) {
-            ToastUtils.showToast(
-                successPaymentStatus, Colors.black, Colors.white);
+          if (result.paymentStatus ==
+              Localization.of(context).paymentSuccessStatus) {
+            ToastUtils.showToast(Localization.of(context).successPaymentStatus,
+                Colors.black, Colors.white);
           }
         }
       }
@@ -176,16 +180,16 @@ class _GooglePaymentPageState extends State<GooglePaymentPage> {
     }
   }
 
-  //To cancel the payment process
+  //To Cancel the payment process
   cancelPayment(String intentId) async {
     try {
       dynamic result =
           await _stripePaymentManager.cancelPayment(context, intentId);
       if (result is CancelPaymentInfo) {
         if (result != null) {
-          if (result.cancelStatus == cancelStatus) {
-            ToastUtils.showToast(
-                cancelPaymentStatus, Colors.black, Colors.white);
+          if (result.cancelStatus == Localization.of(context).cancelStatus) {
+            ToastUtils.showToast(Localization.of(context).cancelPaymentStatus,
+                Colors.black, Colors.white);
           }
         }
       }

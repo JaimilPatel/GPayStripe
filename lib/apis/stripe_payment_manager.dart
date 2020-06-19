@@ -81,7 +81,7 @@ class StripePaymentManager {
   }
 
   //Call Cancel PaymentIntent Stripe API
-  cancelPayment(BuildContext context, String intentId) async {
+  Future cancelPayment(BuildContext context, String intentId) async {
     try {
       callCancelPayment = CloudFunctions(region: europeRegion)
           .getHttpsCallable(functionName: cancelPaymentMethod);

@@ -16,17 +16,11 @@ const String currencyKey = "currency";
 const String tokenKey = "token";
 const String paymentIntentIdKey = "paymentIntentId";
 const String paymentMethodIdKey = "paymentMethodId";
-const String confirmDialogTitle = "Are You Sure To Confirm Payment?";
-const String payTo = "Pay To";
-const String cancel = "Cancel";
-const String confirm = "Confirm";
 const String paymentStatusKey = "paymentStatus";
-const String successPaymentStatus = "Payment Successful";
-const String paymentSuccessStatus = "succeeded";
-const String cancelStatus = "canceled";
 const String cancelStatusKey = "cancelStatus";
 const String error = "error";
-const String cancelPaymentStatus = "Payment Canceled";
+const String routeSplash = "routeSplash";
+const String routePayment = "routePayment";
 
 const nativeTextStyle = TextStyle(
   fontSize: fontLarger,
